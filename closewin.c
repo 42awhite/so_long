@@ -12,6 +12,7 @@
 
 #include <mlx.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct	s_vars {
 	void	*mlx;
@@ -20,9 +21,18 @@ typedef struct	s_vars {
 
 int	close(int keycode, t_vars *vars)
 {
+	(void)vars;
 	printf("%d\n", keycode);
 	if (keycode == 53)
-		mlx_destroy_window(vars->mlx, vars->win);
+		exit(1);
+	if (keycode == 0 || keycode == 123)
+		printf("izqui\n");
+	if (keycode == 2 || keycode == 124)
+		printf("dere\n");
+	if (keycode == 13  || keycode == 126)
+		printf("arriba\n");
+	if (keycode == 1 || keycode == 125)
+		printf("abajo\n");
 	return(0);
 }
 

@@ -12,7 +12,7 @@
 
 NAME	= so_long
 
-SRC		= pruebas.c
+SRC		= valid_map.c
 
 OBJS	= ${SRC:.c=.o}
 
