@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:49:26 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/01 20:15:58 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:28:49 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char**  ft_make_area(char ** zone, t_point size)
 	return(new);
 }
 */
-void	ft_count_lines(int fd, t_cosas *size_map)
+void	ft_count_lines(int fd, t_sizem *size_map)
 {
 	char	*map;
 
@@ -69,7 +69,6 @@ map = get_next_line(fd);
 n_lines = 0;
  while (map != NULL)
   {	
-	// printf("%s\n", map);
 	full_map[n_lines] = map;
 	map = get_next_line(fd);
 	n_lines++;
@@ -77,29 +76,42 @@ n_lines = 0;
   return(full_map);
 }
 
+void	ft_border_map(char **map, int x, int y)
+{	
+	int		cont;
+
+	cont = 0;
+	while (cont < (x - 1))
+	{
+		if (map[0][cont] != '1' || map[(y - 1)][cont] != '1')
+			ft_print_error("contorno x mal");
+		cont++;
+	}
+	cont = 0;
+	while (cont < y)
+	{
+		if (map[cont][0] != '1' || map[cont][(x - 2)] != '1')
+			ft_print_error("contorno y mal");
+		cont++;
+	}
+}
+
 int main(void)
 {
-	int   fd;
-	int	n_lines;
+	int		fd;
+	int		n_lines;
 	char	**full_map;
-	int	cont;
-	t_cosas size_map;
+	int		cont;
+	t_sizem	size_map;
 
-	memset(&size_map, 0, sizeof(t_cosas));
+	memset(&size_map, 0, sizeof(t_sizem));
 	fd = open ("maps/map01", O_RDONLY);
-	// n_lines = ft_count_lines(fd, &size_map);
 	ft_count_lines(fd, &size_map);
 	close(fd);
 	fd = open ("maps/map01", O_RDONLY);
 	full_map = ft_all_map(fd, size_map.y);
 	close(fd);
 	if (full_map == NULL)
-	return (0);
-	cont = 0;
-	// while (full_map[cont])
-  	// {
-	// 	printf("fullmap\t%s", full_map[cont]);
-	// 	cont++;
-  	// }
-  //system("leaks -q a.out");
+		return (0);
+	ft_border_map(full_map, size_map.x, size_map.y);
 }

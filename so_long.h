@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/01 20:16:26 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:30:37 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 #  define BUFFER_SIZE 200
 # endif
 
-typedef struct s_cosas
+typedef struct s_sizem
 {
     int		x;
     int		y;
-}	t_cosas;
+}	t_sizem;
 
 size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
