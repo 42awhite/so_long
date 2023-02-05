@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/02 13:30:37 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:44:32 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ typedef struct s_sizem
     int		x;
     int		y;
 }	t_sizem;
+
+typedef struct s_objects
+{
+    int		pj;
+    int		exit;
+    int     col;
+}	t_objects;
+
+typedef struct s_pj
+{
+    int		x_pj;
+    int		y_pj;
+}	t_pj;
 
 size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
