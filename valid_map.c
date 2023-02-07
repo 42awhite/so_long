@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_map.c                                        :+:      :+:    :+:   */
+/*   valid_map->c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:49:26 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/05 01:27:23 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:13:30 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,14 @@
 #include <stdio.h>
 #include <string.h>
 #include "so_long.h"
-/*
-typ 
-char**  ft_make_area(char ** zone, t_point size)
-{
-	char**  new;
-	int     pos_y;
-	int     pos_x;
 
-	new = malloc(sizeof(char*) * size.y);
-	pos_x = 0;
-	while (pos_x <= size.y)
-	{
-		new[pos_x] = malloc(size.x + 1);
-		pos_x++;
-		pos_y = 0;
-		while(pos_y <= size.x)
-		{
-			new[pos_y][pos_x] = zone[pos_y][pos_x];
-		   // pos_x++;
-			pos_y++;
-		}
-	  new[pos_y][size.x] = '\0';
-	}
-	return(new);
-}
-*/
-void	ft_count_lines(int fd, t_sizem *size_map)
+void	ft_count_lines(char *path_map, t_sizem *size_map)
 {
+	
 	char	*map;
+	int		fd;
 
+	fd = open (path_map, O_RDONLY);
 	map = get_next_line(fd);
 	size_map->x = ft_strlen(map);
 	while (map != NULL)
@@ -51,35 +29,38 @@ void	ft_count_lines(int fd, t_sizem *size_map)
 		free(map);
 		size_map->y++;
 		map = get_next_line(fd);
-		if (map && size_map->x != ft_strlen(map))
+		//CUIDADO con el casteo
+		if (map && size_map->x != (int)ft_strlen(map))
 			ft_print_error("Lineas no iguales");
 	}
-
+		close(fd);
 }
 
-char	**ft_all_map(int fd, int n_lines)
+char	**ft_all_map(char *path_map, int n_lines)
 {
-char	**full_map;
-char	*map;
+	char	**full_map;
+	char	*map;
+	int		fd;
 
-printf("numero lineas:%d\n", n_lines);
-full_map = ft_calloc((n_lines + 1), sizeof(char *));
-  if (!full_map)
-	return (0);
-map = get_next_line(fd);
-n_lines = 0;
- while (map != NULL)
-  {	
-	full_map[n_lines] = map;
+	fd = open (path_map, O_RDONLY);
+	full_map = ft_calloc((n_lines + 1), sizeof(char *));
+	if (!full_map)
+		return (0);
 	map = get_next_line(fd);
-	n_lines++;
-  }
-  return(full_map);
+	n_lines = 0;
+	while (map != NULL)
+	{	
+		full_map[n_lines] = map;
+		map = get_next_line(fd);
+		n_lines++;
+	}
+	return(full_map);
+	close(fd);
 }
 
 void	ft_border_map(char **map, int x, int y)
 {	
-	int		cont;
+	int	cont;
 
 	cont = 0;
 	while (cont < (x - 1))
@@ -99,8 +80,8 @@ void	ft_border_map(char **map, int x, int y)
 
 void	ft_check_obj(char **map, t_objects *obj, t_pj *pos_pj)
 {
-	int		cont_x;
-	int		cont_y;
+	int	cont_x;
+	int	cont_y;
 
 	cont_x = 0;
 	cont_y = 0;
@@ -130,42 +111,42 @@ void	ft_check_obj(char **map, t_objects *obj, t_pj *pos_pj)
 		ft_print_error("No hay coleccionables");
 }
 
-char	**ft_valid_map(char **map, int x_pj, int y_pj)
+void	ft_p_map(char **map, int x_pj, int y_pj)
 {
-	int		x;
-	int		y;
-	//copia el mapa de p en p_map
-	char	**p_map;
-
 	if (map[y_pj][x_pj + 1] != '1' && map[y_pj][x_pj + 1] != 'P')
 	{
 		map[y_pj][x_pj + 1] = 'P';
-		ft_valid_map(map, x_pj + 1, y_pj);
+		ft_p_map(map, x_pj + 1, y_pj);
 	}
 	if (map[y_pj][x_pj - 1] != '1' && map[y_pj][x_pj - 1] != 'P')
 	{
 		map[y_pj][x_pj - 1] = 'P';
-		ft_valid_map(map, x_pj - 1, y_pj);
+		ft_p_map(map, x_pj - 1, y_pj);
 	}
 	if (map[y_pj + 1][x_pj] != '1' && map[y_pj + 1][x_pj] != 'P')
 	{
 		map[y_pj + 1][x_pj] = 'P';
-		ft_valid_map(map, x_pj, y_pj + 1);
+		ft_p_map(map, x_pj, y_pj + 1);
 	}
 	if (map[y_pj - 1][x_pj] != '1' && map[y_pj - 1][x_pj] != 'P')
 	{
 		map[y_pj - 1][x_pj] = 'P';
-		ft_valid_map(map, x_pj, y_pj - 1);
+		ft_p_map(map, x_pj, y_pj - 1);
 	}
+}
 
-	//esto va en otra función.
+void	ft_valid_map(char **p_map)
+{
+	int		x;
+	int		y;
+
 	x = 0;
 	y = 0;
-	while (map[y])
+	while (p_map[y])
 	{
-		while(map[y][x] != '\n')
+		while(p_map[y][x] != '\n')
 		{
-			if (map[y][x] == 'C' || map[y][x] == 'E')
+			if (p_map[y][x] == 'C' || p_map[y][x] == 'E')
 				ft_print_error("Mapa no valido");
 			x++;
 		}
@@ -173,32 +154,65 @@ char	**ft_valid_map(char **map, int x_pj, int y_pj)
 		x = 0;
 	}
 	printf("\nmapa valido");
-}
+}	
 
-int main(void)
+void	ft_check_all_map(t_map *map, char *path_map)
 {
-	int		fd;
-	int		n_lines;
-	char	**full_map;
-	int		cont;
-	t_sizem	size_map;
-	t_objects	obj;
-	t_pj		pos_pj;
-
-	memset(&size_map, 0, sizeof(t_sizem));
-	memset(&obj, 0, sizeof(t_objects));
-	memset(&pos_pj, 0, sizeof(t_pj));
-	fd = open ("maps/map01", O_RDONLY);
-	ft_count_lines(fd, &size_map);
-	close(fd);
-	fd = open ("maps/map01", O_RDONLY);
-	full_map = ft_all_map(fd, size_map.y);
-	close(fd);
-	if (full_map == NULL)
-		return (0);
-	
-	ft_border_map(full_map, size_map.x, size_map.y);
-	printf("%d", obj.pj);
-	ft_check_obj(full_map, &obj, &pos_pj);
-	ft_valid_map(full_map, pos_pj.x_pj, pos_pj.y_pj);
+	//hacer función que me compruebe que los mapas acacban en .ber usando
+	//path map y strncmp
+	ft_memset(map, 0, sizeof(t_map));
+	ft_count_lines(path_map, &map->size);
+	map->full_map = ft_all_map(path_map, map->size.y);
+	if (map->full_map == NULL)
+		return ;
+	map->p_map = ft_all_map(path_map, map->size.y);
+	if (map->p_map == NULL)
+		return ;
+	//function comprobar mapa
+	ft_border_map(map->full_map, map->size.x, map->size.y);
+	printf("%d", map->obj.pj);
+	ft_check_obj(map->full_map, &map->obj, &map->pj_start);
+	ft_p_map(map->p_map, map->pj_start.x_pj, map->pj_start.y_pj);
+	ft_valid_map(map->p_map);
 }
+
+int	ft_close(int keycode, t_vars *vars)
+{
+	(void)vars;
+	printf("%d\n", keycode);
+	if (keycode == 53)
+		exit(1);
+	if (keycode == 0 || keycode == 123)
+		printf("izqui\n");
+	if (keycode == 2 || keycode == 124)
+		printf("dere\n");
+	if (keycode == 13  || keycode == 126)
+		printf("arriba\n");
+	if (keycode == 1 || keycode == 125)
+		printf("abajo\n");
+	return(0);
+}
+
+
+int main(int argc, char **argv)
+{
+	// la ruta tienes que obtener por parametros obtenidos en el main.
+	t_map	map;
+
+	if (argc == 1)
+		return (1);
+	ft_check_all_map(&map, argv[1]);
+	void	*img;
+	char	*relative_path = "/Users/ablanco-/Proyectos/solong/Dino1.xpm";
+	int		img_width;
+	int		img_height;
+	t_vars	vars;
+
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
+	img = mlx_xpm_file_to_image(vars.mlx, relative_path, &img_width, &img_height);
+	mlx_put_image_to_window(vars.mlx, vars.win, img, 0, 0);
+	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
+	mlx_loop(vars.mlx);
+}
+

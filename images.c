@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ablanco- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:56:44 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/01/27 12:56:47 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:50:35 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ int	main(void)
 	int		dino_site;
 
 	mlx = mlx_init();
+								//  width, height
     mlx_win = mlx_new_window(mlx, 600, 600, "Hello world!");
 	img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
-	
 	cont = 0;
 	dino_site = 0;
 	while (cont < 10)
 	{
+												// x, y
     	mlx_put_image_to_window(mlx, mlx_win, img, dino_site, 0);
 		cont++;
 		dino_site = dino_site + 60;
