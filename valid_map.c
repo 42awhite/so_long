@@ -15,6 +15,19 @@
 #include <string.h>
 #include "so_long.h"
 
+void	ft_name_map(char *path_map)
+{
+	size_t	size;
+	int		cmp;
+
+	size = ft_strlen(path_map) - 4;
+	printf("\n%zu\n", size);
+	cmp = ft_strncmp(".ber", &path_map[size], 4);
+	printf("\n%d\n", cmp);
+	if (cmp != 0)
+		ft_print_error("el mapa no acaba en .ber");
+}
+
 void	ft_count_lines(char *path_map, t_sizem *size_map)
 {
 	
@@ -104,7 +117,6 @@ void	ft_check_obj(char **map, t_objects *obj, t_pj *pos_pj)
 		cont_y++;
 		cont_x = 0;
 	}
-	printf("\npos pj x = %d\n pos pj y = %d \n", pos_pj->x_pj, pos_pj->y_pj);
 	if (obj->pj != 1 || obj->exit != 1)
 		ft_print_error("n de obj o pj mal");
 	if (obj->col < 1)
@@ -153,13 +165,11 @@ void	ft_valid_map(char **p_map)
 		y++;
 		x = 0;
 	}
-	printf("\nmapa valido");
 }	
 
 void	ft_check_all_map(t_map *map, char *path_map)
 {
-	//hacer función que me compruebe que los mapas acacban en .ber usando
-	//path map y strncmp
+	ft_name_map(path_map);
 	ft_memset(map, 0, sizeof(t_map));
 	ft_count_lines(path_map, &map->size);
 	map->full_map = ft_all_map(path_map, map->size.y);
@@ -168,18 +178,18 @@ void	ft_check_all_map(t_map *map, char *path_map)
 	map->p_map = ft_all_map(path_map, map->size.y);
 	if (map->p_map == NULL)
 		return ;
-	//function comprobar mapa
 	ft_border_map(map->full_map, map->size.x, map->size.y);
-	printf("%d", map->obj.pj);
 	ft_check_obj(map->full_map, &map->obj, &map->pj_start);
 	ft_p_map(map->p_map, map->pj_start.x_pj, map->pj_start.y_pj);
 	ft_valid_map(map->p_map);
 }
 
+//DE AQUI PARA ARRIBA ES PARA CHECKEAR MAPA
+
 int	ft_close(int keycode, t_vars *vars)
 {
 	(void)vars;
-	printf("%d\n", keycode);
+//	printf("%d\n", keycode);
 	if (keycode == 53)
 		exit(1);
 	if (keycode == 0 || keycode == 123)
@@ -194,6 +204,7 @@ int	ft_close(int keycode, t_vars *vars)
 }
 
 
+
 int main(int argc, char **argv)
 {
 	// la ruta tienes que obtener por parametros obtenidos en el main.
@@ -204,15 +215,17 @@ int main(int argc, char **argv)
 	ft_check_all_map(&map, argv[1]);
 	void	*img;
 	char	*relative_path = "/Users/ablanco-/Proyectos/solong/Dino1.xpm";
+	//Anchura
 	int		img_width;
+	//altura
 	int		img_height;
 	t_vars	vars;
 
 	vars.mlx = mlx_init();
+	//Hacer función que te mida el ancho y el largo de la ventana
 	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
 	img = mlx_xpm_file_to_image(vars.mlx, relative_path, &img_width, &img_height);
 	mlx_put_image_to_window(vars.mlx, vars.win, img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
 	mlx_loop(vars.mlx);
 }
-
