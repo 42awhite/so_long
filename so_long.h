@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/07 19:19:00 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:19:37 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_sizem
 	//cambia por size_t
 	int		x;
 	int		y;
+	int		x_win;
+	int		y_win;
 }	t_sizem;
 
 typedef struct s_objects
@@ -48,6 +50,15 @@ typedef struct s_pj
 	int		x_pj;
 	int		y_pj;
 }	t_pj;
+
+typedef struct s_img
+{
+	void	*floor;
+	void	*player;
+	void	*wall;
+	void	*exit;
+	void	*food;
+}	t_img;
 
 typedef struct s_map
 {

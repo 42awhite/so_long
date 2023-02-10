@@ -18,13 +18,9 @@
 void	ft_name_map(char *path_map)
 {
 	size_t	size;
-	int		cmp;
 
 	size = ft_strlen(path_map) - 4;
-	printf("\n%zu\n", size);
-	cmp = ft_strncmp(".ber", &path_map[size], 4);
-	printf("\n%d\n", cmp);
-	if (cmp != 0)
+	if (ft_strncmp(".ber", &path_map[size], 4) != 0)
 		ft_print_error("el mapa no acaba en .ber");
 }
 
@@ -203,29 +199,47 @@ int	ft_close(int keycode, t_vars *vars)
 	return(0);
 }
 
+void	sizexy_win(t_map *map)
+{
+	map->size.x_win = (map->size.x - 1) * 60;
+	map->size.y_win = map->size.y * 60;
+}
 
+void	load_imgs(t_img *img, t_vars *vars)
+{
+	char	*relative_path = "Dino1.xpm";
+	int		img_width;
+	int		img_height;
+	img->player = mlx_xpm_file_to_image(vars->mlx, relative_path, &img_width, &img_height);
+}
 
 int main(int argc, char **argv)
 {
 	// la ruta tienes que obtener por parametros obtenidos en el main.
 	t_map	map;
+	t_img	img;
 
 	if (argc == 1)
 		return (1);
 	ft_check_all_map(&map, argv[1]);
-	void	*img;
-	char	*relative_path = "/Users/ablanco-/Proyectos/solong/Dino1.xpm";
+	//  void	*img;
+	// char	*relative_path = "Dino1.xpm";
 	//Anchura
-	int		img_width;
+	// int		img_width;
 	//altura
-	int		img_height;
+	// int		img_height;
 	t_vars	vars;
 
+	ft_memset(&img, 0, sizeof(t_img));
 	vars.mlx = mlx_init();
-	//Hacer función que te mida el ancho y el largo de la ventana
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	img = mlx_xpm_file_to_image(vars.mlx, relative_path, &img_width, &img_height);
-	mlx_put_image_to_window(vars.mlx, vars.win, img, 0, 0);
+
+	sizexy_win(&map);
+	printf("%d\n", map.size.x_win);
+	printf("%d\n", map.size.y_win);
+	vars.win = mlx_new_window(vars.mlx, map.size.x_win, map.size.y_win, "I'm a SEXY window!! :)");
+	load_imgs(&img, &vars);
+	// img = mlx_xpm_file_to_image(vars.mlx, relative_path, &img_width, &img_height);
+	mlx_put_image_to_window(vars.mlx, vars.win, img.player, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
 	mlx_loop(vars.mlx);
 }
