@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/10 20:19:37 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/16 00:02:39 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 200
 # endif
+
+#define  TREE "imag/tree.xpm"
+#define	 DINO "imag/Dino1.xpm"
+#define	 FLOOR "imag/floor.xpm"
+#define	 EGG	"imag/Egg1.xpm"
+#define	 FOOD	"imag/pizza.xpm"
+
 
 typedef struct	s_vars {
 	void	*mlx;
@@ -65,9 +72,16 @@ typedef struct s_map
 	t_sizem size;
 	t_objects obj;
 	t_pj    pj_start;
+	t_vars	vars;
+	t_img	img;
 	char    **full_map;
 	char    **p_map;
 } t_map;
+
+typedef struct s_sl
+{
+	
+}
 
 
 size_t	ft_strlen(const char *str);
@@ -80,4 +94,6 @@ void	ft_print_error(char *str);
 void	ft_putstr(char *s);
 void	*ft_memset(void *b, int c, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+
+void	ft_move(t_map *map, int x, int y);
 #endif

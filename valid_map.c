@@ -181,21 +181,9 @@ void	ft_check_all_map(t_map *map, char *path_map)
 }
 
 //DE AQUI PARA ARRIBA ES PARA CHECKEAR MAPA
-
-int	ft_close(int keycode, t_vars *vars)
+int	ft_close(void)
 {
-	(void)vars;
-//	printf("%d\n", keycode);
-	if (keycode == 53)
-		exit(1);
-	if (keycode == 0 || keycode == 123)
-		printf("izqui\n");
-	if (keycode == 2 || keycode == 124)
-		printf("dere\n");
-	if (keycode == 13  || keycode == 126)
-		printf("arriba\n");
-	if (keycode == 1 || keycode == 125)
-		printf("abajo\n");
+	exit(1);
 	return(0);
 }
 
@@ -207,10 +195,79 @@ void	sizexy_win(t_map *map)
 
 void	load_imgs(t_img *img, t_vars *vars)
 {
-	char	*relative_path = "Dino1.xpm";
 	int		img_width;
 	int		img_height;
-	img->player = mlx_xpm_file_to_image(vars->mlx, relative_path, &img_width, &img_height);
+	img->player = mlx_xpm_file_to_image(vars->mlx, DINO, &img_width, &img_height);
+	img->floor = mlx_xpm_file_to_image(vars->mlx, FLOOR, &img_width, &img_height);
+	img->wall = mlx_xpm_file_to_image(vars->mlx, TREE, &img_width, &img_height);
+	img->exit = mlx_xpm_file_to_image(vars->mlx, EGG, &img_width, &img_height);
+	img->food = mlx_xpm_file_to_image(vars->mlx, FOOD, &img_width, &img_height);
+}
+
+int	ft_input(int keycode, t_map *map)
+{
+	//	printf("%d\n", keycode);
+	printf("X: [%d], Y: [%d]\n", map->pj_start.x_pj, map->pj_start.y_pj);
+	printf("%p %p %p\n", map->vars.mlx, map->vars.win, map->img.floor);
+	if (keycode == 53)
+		exit(1);
+	if (keycode == 0 || keycode == 123)
+	{
+		printf("izqui\n");
+		ft_move(map, -1, 0);
+	}
+	if (keycode == 2 || keycode == 124)
+		printf("dere\n");
+	if (keycode == 13  || keycode == 126)
+		printf("arriba\n");
+	if (keycode == 1 || keycode == 125)
+		printf("abajo\n");
+	
+	return(0);
+}
+
+void	img_letter(char c, int x, int y, t_vars *vars, t_img *img)
+{
+	printf("%p %p %p\n", vars->mlx, vars->win, img->floor);
+	mlx_put_image_to_window(vars->mlx, vars->win, img->floor, x * 60, y * 60);
+	if (c == 'P')
+		mlx_put_image_to_window(vars->mlx, vars->win, img->player, x * 60, y * 60);
+	else if (c  == '1')
+		mlx_put_image_to_window(vars->mlx, vars->win, img->wall, x * 60, y * 60);
+	else if (c  == 'C')
+		mlx_put_image_to_window(vars->mlx, vars->win, img->food, x * 60, y * 60);
+	else if (c  == 'E')
+		mlx_put_image_to_window(vars->mlx, vars->win, img->exit, x * 60, y * 60);
+}
+
+void	img_to_map(t_img *img, t_vars *vars, t_map *map)
+{
+	int		cont_x;
+	int		cont_y;
+
+	cont_x = 0;
+	cont_y = 0;
+	while (map->full_map[cont_y])
+	{
+		while (map->full_map[cont_y][cont_x] != '\n')
+		{
+			img_letter(map->full_map[cont_y][cont_x], cont_x, cont_y, vars, img);
+			cont_x++;
+		}
+		cont_x = 0;
+		cont_y++;
+	}
+}
+
+void	ft_move(t_map *map, int x, int y)
+{
+	map->full_map[map->pj_start.y_pj][map->pj_start.x_pj] = '0';
+	map->full_map[map->pj_start.y_pj + y][map->pj_start.x_pj + x] = 'P';
+	map->pj_start.x_pj += x;
+	map->pj_start.y_pj += y;
+	printf("X: [%d], Y: [%d]\n", map->pj_start.x_pj, map->pj_start.y_pj);
+	printf("%p %p %p\n", map->vars.mlx, map->vars.win, map->img.floor);
+	img_to_map(&map->img, &map->vars, map);
 }
 
 int main(int argc, char **argv)
@@ -222,24 +279,16 @@ int main(int argc, char **argv)
 	if (argc == 1)
 		return (1);
 	ft_check_all_map(&map, argv[1]);
-	//  void	*img;
-	// char	*relative_path = "Dino1.xpm";
-	//Anchura
-	// int		img_width;
-	//altura
-	// int		img_height;
-	t_vars	vars;
-
-	ft_memset(&img, 0, sizeof(t_img));
-	vars.mlx = mlx_init();
-
+	//ft_memset(&img, 0, sizeof(t_img));
+	map.vars.mlx = mlx_init();
 	sizexy_win(&map);
-	printf("%d\n", map.size.x_win);
-	printf("%d\n", map.size.y_win);
-	vars.win = mlx_new_window(vars.mlx, map.size.x_win, map.size.y_win, "I'm a SEXY window!! :)");
-	load_imgs(&img, &vars);
-	// img = mlx_xpm_file_to_image(vars.mlx, relative_path, &img_width, &img_height);
-	mlx_put_image_to_window(vars.mlx, vars.win, img.player, 0, 0);
-	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
-	mlx_loop(vars.mlx);
+	map.vars.win = mlx_new_window(map.vars.mlx, map.size.x_win, map.size.y_win, "I'm a SEXY window!! :)");
+	load_imgs(&img, &map.vars);
+	img_to_map(&img, &map.vars, &map);
+	printf("x:%d\n", map.pj_start.x_pj);
+	printf("y:%d\n", map.pj_start.y_pj);
+	printf("INICIO: %p %p %p\n", map.vars.mlx, map.vars.win, map.img.floor);
+	mlx_key_hook(map.vars.win, ft_input, &map);
+	mlx_hook(map.vars.win, 17, 0, ft_close, &map.vars);
+	mlx_loop(map.vars.mlx);
 }
