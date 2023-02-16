@@ -6,7 +6,7 @@
 #    By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 19:36:44 by ablanco-          #+#    #+#              #
-#    Updated: 2023/02/15 23:15:03 by ablanco-         ###   ########.fr        #
+#    Updated: 2023/02/16 17:51:43 by ablanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,11 @@ SRC		=	valid_map.c\
 			utils.c\
 			get_next_line.c\
 			get_next_line_utils.c\
+			main.c\
+			save_map.c\
+			window.c\
+			images.c\
+			move.c\
 
 OBJS	= ${SRC:.c=.o}
 

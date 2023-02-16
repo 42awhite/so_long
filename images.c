@@ -5,38 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 12:56:44 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/06 19:50:35 by ablanco-         ###   ########.fr       */
+/*   Created: 2023/02/16 17:36:06 by ablanco-          #+#    #+#             */
+/*   Updated: 2023/02/16 17:39:43 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <stdio.h>
+#include "so_long.h"
 
-int	main(void)
+void	load_imgs(t_img *img, t_vars *vars)
 {
-	void	*mlx;
-	void	*img;
-	char	*relative_path = "/Users/ablanco-/Proyectos/solong/Dino1.xpm";
 	int		img_width;
 	int		img_height;
-    void	*mlx_win;
-	int 	cont;
-	int		dino_site;
+	img->player = mlx_xpm_file_to_image(vars->mlx, DINO, &img_width, &img_height);
+	img->floor = mlx_xpm_file_to_image(vars->mlx, FLOOR, &img_width, &img_height);
+	img->wall = mlx_xpm_file_to_image(vars->mlx, TREE, &img_width, &img_height);
+	img->exit = mlx_xpm_file_to_image(vars->mlx, EGG, &img_width, &img_height);
+	img->food = mlx_xpm_file_to_image(vars->mlx, FOOD, &img_width, &img_height);
+}
 
-	mlx = mlx_init();
-								//  width, height
-    mlx_win = mlx_new_window(mlx, 600, 600, "Hello world!");
-	img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
-	cont = 0;
-	dino_site = 0;
-	while (cont < 10)
+void	img_letter(char c, int x, int y, t_vars *vars, t_img *img)
+{
+	mlx_put_image_to_window(vars->mlx, vars->win, img->floor, x * 60, y * 60);
+	if (c == 'P')
+		mlx_put_image_to_window(vars->mlx, vars->win, img->player, x * 60, y * 60);
+	else if (c  == '1')
+		mlx_put_image_to_window(vars->mlx, vars->win, img->wall, x * 60, y * 60);
+	else if (c  == 'C')
+		mlx_put_image_to_window(vars->mlx, vars->win, img->food, x * 60, y * 60);
+	else if (c  == 'E')
+		mlx_put_image_to_window(vars->mlx, vars->win, img->exit, x * 60, y * 60);
+}
+
+void	img_to_map(t_img *img, t_vars *vars, t_map *map)
+{
+	int		cont_x;
+	int		cont_y;
+
+	cont_x = 0;
+	cont_y = 0;
+	while (map->full_map[cont_y])
 	{
-												// x, y
-    	mlx_put_image_to_window(mlx, mlx_win, img, dino_site, 0);
-		cont++;
-		dino_site = dino_site + 60;
+		while (map->full_map[cont_y][cont_x] != '\n')
+		{
+			img_letter(map->full_map[cont_y][cont_x], cont_x, cont_y, vars, img);
+			cont_x++;
+		}
+		cont_x = 0;
+		cont_y++;
 	}
-    printf("%p\n", img);
-    mlx_loop(mlx);
 }
