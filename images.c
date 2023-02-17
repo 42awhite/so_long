@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:36:06 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/16 17:39:43 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:38:00 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	load_imgs(t_img *img, t_vars *vars)
 {
 	int		img_width;
 	int		img_height;
-	img->player = mlx_xpm_file_to_image(vars->mlx, DINO, &img_width, &img_height);
+	img->player = mlx_xpm_file_to_image(vars->mlx, "imag/Dino1.xpm", &img_width, &img_height);
+	img->pj_l = mlx_xpm_file_to_image(vars->mlx, "imag/Dinoizq1.xpm", &img_width, &img_height);
+	img->pj_d = mlx_xpm_file_to_image(vars->mlx, "imag/Dino_down.xpm", &img_width, &img_height);
+	img->pj_up = mlx_xpm_file_to_image(vars->mlx, "imag/Dino_up1.xpm", &img_width, &img_height);
 	img->floor = mlx_xpm_file_to_image(vars->mlx, FLOOR, &img_width, &img_height);
 	img->wall = mlx_xpm_file_to_image(vars->mlx, TREE, &img_width, &img_height);
 	img->exit = mlx_xpm_file_to_image(vars->mlx, EGG, &img_width, &img_height);

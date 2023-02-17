@@ -12,7 +12,6 @@
 
 #include "so_long.h"
 
-
 void	ft_border_map(char **map, int x, int y)
 {	
 	int	cont;
