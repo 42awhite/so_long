@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/17 14:28:33 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:16:16 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_pj
 typedef struct s_img
 {
 	void	*player;
+	void	*pj_r;
 	void	*pj_l;
 	void	*pj_up;
 	void	*pj_d;
