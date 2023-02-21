@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/21 17:16:16 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:17:07 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_objects
 	int		pj;
 	int		exit;
 	int     col;
+	int		x_ex;
+	int		y_ex;
 }	t_objects;
 
 typedef struct s_pj

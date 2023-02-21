@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:36:06 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/21 17:23:09 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:58:00 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	img_letter(char c, int x, int y, t_vars *vars, t_img *img)
 		mlx_put_image_to_window(vars->mlx, vars->win, img->wall, x * 60, y * 60);
 	else if (c  == 'C')
 		mlx_put_image_to_window(vars->mlx, vars->win, img->food, x * 60, y * 60);
-	else if (c  == 'E')
+	else if (c  == 'E') // if aparte x == img->obj->x_ex  && y == img->obj->y_ex;
 		mlx_put_image_to_window(vars->mlx, vars->win, img->exit, x * 60, y * 60);
 }
 

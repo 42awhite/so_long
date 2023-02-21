@@ -6,7 +6,7 @@
 #    By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 19:36:44 by ablanco-          #+#    #+#              #
-#    Updated: 2023/02/16 17:51:43 by ablanco-         ###   ########.fr        #
+#    Updated: 2023/02/21 19:35:49 by ablanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJS	= ${SRC:.c=.o}
 
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -Imlx -g
+CFLAGS	= -Wall -Wextra -Werror -Imlx -g -fsanitize=address
 
 RM		= rm -f
 

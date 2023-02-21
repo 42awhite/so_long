@@ -52,7 +52,11 @@ void	ft_check_obj(char **map, t_objects *obj, t_pj *pos_pj)
 				pos_pj->y_pj = cont_y;
 			}
 			else if (map[cont_y][cont_x] == 'E')
+			{
 				obj->exit++;
+				obj->x_ex = cont_x;
+				obj->y_ex = cont_y;
+			}
 			cont_x++;
 		}
 		cont_y++;
