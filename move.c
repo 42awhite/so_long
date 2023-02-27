@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:49:43 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/21 19:36:07 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:06:53 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@ void	ft_move(t_sl *sl, int dx, int dy)
 	if ((sl->map.full_map[sl->pj.y_pj + dy][sl->pj.x_pj + dx] != '1'))
 	{
 		sl->map.full_map[sl->pj.y_pj][sl->pj.x_pj] = '0';
+		if (sl->map.full_map[sl->pj.y_pj + dy][sl->pj.x_pj + dx] == 'C')
+			sl->obj.col--;
+		printf("\n%d\n", sl->obj.col);
 		sl->map.full_map[sl->pj.y_pj + dy][sl->pj.x_pj + dx] = 'P';
+		//if (sl->c_tim == 500)
+		//	ft_win(sl);
 		sl->pj.x_pj += dx;
 		sl->pj.y_pj += dy;
-		img_to_map(&(sl->img), &(sl->vars), &(sl->map));
+		img_to_map(sl);
 	}
 }
 

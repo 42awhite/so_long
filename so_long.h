@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/21 19:17:07 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/27 19:50:57 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,40 @@
 #  define BUFFER_SIZE 200
 # endif
 
-#define	 EGG	"imag/Egg1.xpm"
-#define	 DINO 	"imag/Dino1.xpm"
-#define  TREE 	"imag/tree.xpm"
-#define	 FLOOR 	"imag/floor.xpm"
-#define	 FOOD	"imag/pizza.xpm"
+# define EGG	"imag/Egg1.xpm"
+# define DINO 	"imag/Dino1.xpm"
+# define PR		"imag/Dino1.xpm"
+# define TREE 	"imag/tree.xpm"
+# define FLOOR 	"imag/floor.xpm"
+# define FOOD	"imag/pizza.xpm"
 
-
-typedef struct	s_vars {
+typedef struct s_vars {
 	void	*mlx;
 	void	*win;
-}				t_vars;
+}t_vars;
 
 typedef struct s_sizem
 {
-	//cambia por size_t
 	int		x;
 	int		y;
 	int		x_win;
 	int		y_win;
-}	t_sizem;
+}t_sizem;
 
 typedef struct s_objects
 {
 	int		pj;
 	int		exit;
-	int     col;
+	int		col;
 	int		x_ex;
 	int		y_ex;
-}	t_objects;
+}t_objects;
 
 typedef struct s_pj
 {
 	int		x_pj;
 	int		y_pj;
-}	t_pj;
+}t_pj;
 
 typedef struct s_img
 {
@@ -72,30 +71,32 @@ typedef struct s_img
 	void	*floor;
 	void	*wall;
 	void	*exit;
+	void	*h[7];
 	void	*food;
-}	t_img;
+}t_img;
 
 typedef struct s_map
 {
-	t_sizem size;
-	char    **full_map;
-	char    **p_map;
-} t_map;
+	t_sizem	size;
+	char	**full_map;
+	char	**p_map;
+}t_map;
 
 typedef struct s_sl
 {
 	t_map		map;
-	t_objects 	obj;
-	t_pj    	pj;
+	t_objects	obj;
+	t_pj		pj;
 	t_vars		vars;
 	t_img		img;
+	int			c_tim;
 }t_sl;
 
 char	*get_next_line(int fd);
 void	ft_print_error(char *str);
 void	ft_check_all_map(t_sl *sl, char *path_map);
 void	sizexy_win(t_map *map);
-void	img_to_map(t_img *img, t_vars *vars, t_map *map);
+void	img_to_map(t_sl *sl);
 void	load_imgs(t_img *img, t_vars *vars);
 int		ft_close(void);
 void	ft_count_lines(char *path_map, t_sizem *size_map);
@@ -104,10 +105,9 @@ void	ft_name_map(char *path_map);
 int		ft_close(void);
 void	sizexy_win(t_map *map);
 void	load_imgs(t_img *img, t_vars *vars);
-void	img_letter(char c, int x, int y, t_vars *vars, t_img *img);
-void	img_to_map(t_img *img, t_vars *vars, t_map *map);
+void	img_letter(char c, int x, int y, t_sl *sl);
 void	ft_move(t_sl *sl, int dx, int dy);
 int		ft_input(int keycode, t_sl *sl);
-
+void	ft_win(t_sl *sl);
 
 #endif
