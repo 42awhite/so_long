@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:36:06 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/27 20:40:18 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:58:46 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ void	load_imgs(t_img *img, t_vars *vars)
 	img->h[5] = mlx_xpm_file_to_image(vars->mlx, H5, &img_width, &img_height);
 	img->h[6] = mlx_xpm_file_to_image(vars->mlx, H6, &img_width, &img_height);
 	img->food = mlx_xpm_file_to_image(vars->mlx, FOOD, &img_width, &img_height);
+	ft_img_error(xpm, img);
+}
+
+void	ft_img_error(void **xpm, t_img *img)
+{
 	while (xpm[0] < img->food)
 	{
 		if (xpm[0] == NULL)
@@ -47,18 +52,23 @@ void	load_imgs(t_img *img, t_vars *vars)
 
 void	img_letter(char c, int x, int y, t_sl *sl)
 {
-	mlx_put_image_to_window(sl->vars.mlx, sl->vars.win, sl->img.floor, x * 60, y * 60);
+	mlx_put_image_to_window(sl->vars.mlx, sl->vars.win,
+		sl->img.floor, x * 60, y * 60);
 	if (c == 'P')
-		mlx_put_image_to_window(sl->vars.mlx, sl->vars.win, sl->img.player, x * 60, y * 60);
-	else if (c  == '1')
-		mlx_put_image_to_window(sl->vars.mlx, sl->vars.win, sl->img.wall, x * 60, y * 60);
-	else if (c  == 'C')
-		mlx_put_image_to_window(sl->vars.mlx, sl->vars.win, sl->img.food, x * 60, y * 60);
+		mlx_put_image_to_window(sl->vars.mlx, sl->vars.win,
+			sl->img.player, x * 60, y * 60);
+	else if (c == '1')
+		mlx_put_image_to_window(sl->vars.mlx,
+			sl->vars.win, sl->img.wall, x * 60, y * 60);
+	else if (c == 'C')
+		mlx_put_image_to_window(sl->vars.mlx,
+			sl->vars.win, sl->img.food, x * 60, y * 60);
 	if (x == sl->obj.x_ex && y == sl->obj.y_ex)
-		mlx_put_image_to_window(sl->vars.mlx, sl->vars.win, sl->img.exit, x * 60, y * 60);
+		mlx_put_image_to_window(sl->vars.mlx, sl->vars.win,
+			sl->img.exit, x * 60, y * 60);
 }
 
-void	img_to_map (t_sl *sl)
+void	img_to_map(t_sl *sl)
 {
 	int		cont_x;
 	int		cont_y;
@@ -83,12 +93,12 @@ void	ft_win(t_sl *sl)
 
 	if (sl->obj.col == 0)
 	{
-		if(cont < 7)
+		if (cont < 7)
 		{
 			mlx_put_image_to_window(sl->vars.mlx, sl->vars.win, sl->img.floor,
-			 sl->obj.x_ex * 60, sl->obj.y_ex * 60);
+				sl->obj.x_ex * 60, sl->obj.y_ex * 60);
 			mlx_put_image_to_window(sl->vars.mlx, sl->vars.win, sl->img.h[cont],
-			 sl->obj.x_ex * 60, sl->obj.y_ex * 60);
+				sl->obj.x_ex * 60, sl->obj.y_ex * 60);
 			cont++;
 		}
 		sl->img.exit = sl->img.h[6];

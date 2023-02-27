@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/27 20:37:58 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:54:25 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void	img_letter(char c, int x, int y, t_sl *sl);
 void	ft_move(t_sl *sl, int dx, int dy);
 int		ft_input(int keycode, t_sl *sl);
 void	ft_win(t_sl *sl);
+void	ft_img_error(void **xpm, t_img *img);
 
 #endif
