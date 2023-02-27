@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/27 19:50:57 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:37:58 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,21 @@
 #  define BUFFER_SIZE 200
 # endif
 
-# define EGG	"imag/Egg1.xpm"
 # define DINO 	"imag/Dino1.xpm"
 # define PR		"imag/Dino1.xpm"
+# define PL		"imag/Dino_izq1.xpm"
+# define PD		"imag/Dino_down.xpm"
+# define PUP	"imag/Dino_up1.xpm"
 # define TREE 	"imag/tree.xpm"
-# define FLOOR 	"imag/floor.xpm"
+# define FLO 	"imag/floor.xpm"
 # define FOOD	"imag/pizza.xpm"
+# define EGG	"imag/Egg1.xpm"
+# define H1		"imag/h2.xpm"
+# define H2		"imag/h3.xpm"
+# define H3		"imag/h4.xpm"
+# define H4		"imag/h5.xpm"
+# define H5		"imag/h6.xpm"
+# define H6		"imag/h7.xpm"
 
 typedef struct s_vars {
 	void	*mlx;
