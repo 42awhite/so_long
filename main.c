@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:59:23 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/27 16:57:50 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:21:16 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,28 @@ int	ft_anim(t_sl *sl)
 	sl->c_tim++;
 	if (sl->c_tim % 1000 == 0)
 		ft_win(sl);
-		//sl->c_tim = 0;
-	//printf("\n%d\n", sl->c_tim);
-	return(0);
+	return (0);
 }
 
-int main(int argc, char **argv)
+void	ft_check_all_map(t_sl *sl, char *path_map)
 {
-	// la ruta tienes que obtener por parametros obtenidos en el main.
+	ft_name_map(path_map);
+	ft_memset(sl, 0, sizeof(t_sl));
+	ft_count_lines(path_map, &sl->map.size);
+	sl->map.full_map = ft_all_map(path_map, sl->map.size.y);
+	if (sl->map.full_map == NULL)
+		return ;
+	sl->map.p_map = ft_all_map(path_map, sl->map.size.y);
+	if (sl->map.p_map == NULL)
+		return ;
+	ft_border_map(sl->map.full_map, sl->map.size.x, sl->map.size.y);
+	ft_check_obj(sl->map.full_map, sl);
+	ft_p_map(sl->map.p_map, sl->pj.x_pj, sl->pj.y_pj);
+	ft_valid_map(sl->map.p_map);
+}
+
+int	main(int argc, char **argv)
+{
 	t_sl	sl;
 
 	if (argc == 1)
@@ -32,7 +46,8 @@ int main(int argc, char **argv)
 	ft_check_all_map(&sl, argv[1]);
 	sl.vars.mlx = mlx_init();
 	sizexy_win(&sl.map);
-	sl.vars.win = mlx_new_window(sl.vars.mlx, sl.map.size.x_win, sl.map.size.y_win, "I'm a SEXY window!! :)");
+	sl.vars.win = mlx_new_window(sl.vars.mlx, sl.map.size.x_win,
+			sl.map.size.y_win, "I'm a SEXY window!! :)");
 	load_imgs(&sl.img, &sl.vars);
 	img_to_map(&sl);
 	mlx_key_hook(sl.vars.win, ft_input, &sl);

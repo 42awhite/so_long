@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:37:56 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/03/01 16:49:31 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:16:42 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,25 @@ void	ft_border_map(char **map, int x, int y)
 	}
 }
 
-void	ft_num_obj(t_objects *obj)
+void	ft_n_obj(t_sl *sl, char c, int cont_y, int cont_x)
 {
-	if (obj->pj != 1 || obj->exit != 1)
-		ft_print_error("n de obj o pj mal");
-	if (obj->col < 1)
-		ft_print_error("No hay coleccionables");
+	if (c == 'C')
+		sl->obj.col++;
+	else if (c == 'P')
+	{
+		sl->obj.pj++;
+		sl->pj.x_pj = cont_x;
+		sl->pj.y_pj = cont_y;
+	}
+	else if (c == 'E')
+	{
+		sl->obj.exit++;
+		sl->obj.x_ex = cont_x;
+		sl->obj.y_ex = cont_y;
+	}
 }
 
-void	ft_check_obj(char **map, t_objects *obj, t_pj *pos_pj)
+void	ft_check_obj(char **map, t_sl *sl)
 {
 	int	cont_x;
 	int	cont_y;
@@ -51,26 +61,16 @@ void	ft_check_obj(char **map, t_objects *obj, t_pj *pos_pj)
 	{
 		while (map[cont_y][cont_x] != '\n')
 		{
-			if (map[cont_y][cont_x] == 'C')
-				obj->col++;
-			else if (map[cont_y][cont_x] == 'P')
-			{
-				obj->pj++;
-				pos_pj->x_pj = cont_x;
-				pos_pj->y_pj = cont_y;
-			}
-			else if (map[cont_y][cont_x] == 'E')
-			{
-				obj->exit++;
-				obj->x_ex = cont_x;
-				obj->y_ex = cont_y;
-			}
+			ft_n_obj(sl, map[cont_y][cont_x], cont_y, cont_x);
 			cont_x++;
 		}
 		cont_y++;
 		cont_x = 0;
 	}
-	ft_num_obj(obj);
+	if (sl->obj.pj != 1 || sl->obj.exit != 1)
+		ft_print_error("n de obj o pj mal");
+	if (sl->obj.col < 1)
+		ft_print_error("No hay coleccionables");
 }
 
 void	ft_p_map(char **map, int x_pj, int y_pj)
@@ -116,20 +116,3 @@ void	ft_valid_map(char **p_map)
 		x = 0;
 	}
 }	
-
-void	ft_check_all_map(t_sl *sl, char *path_map)
-{
-	ft_name_map(path_map);
-	ft_memset(sl, 0, sizeof(t_sl));
-	ft_count_lines(path_map, &sl->map.size);
-	sl->map.full_map = ft_all_map(path_map, sl->map.size.y);
-	if (sl->map.full_map == NULL)
-		return ;
-	sl->map.p_map = ft_all_map(path_map, sl->map.size.y);
-	if (sl->map.p_map == NULL)
-		return ;
-	ft_border_map(sl->map.full_map, sl->map.size.x, sl->map.size.y);
-	ft_check_obj(sl->map.full_map, &sl->obj, &sl->pj);
-	ft_p_map(sl->map.p_map, sl->pj.x_pj, sl->pj.y_pj);
-	ft_valid_map(sl->map.p_map);
-}

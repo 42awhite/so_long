@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   put_nbr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 12:56:44 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/03/01 18:24:24 by ablanco-         ###   ########.fr       */
+/*   Created: 2023/03/01 21:42:30 by ablanco-          #+#    #+#             */
+/*   Updated: 2023/03/01 22:05:16 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_close(void)
+void	ft_char(char c)
 {
-	exit(1);
-	return (0);
+	write(1, &c, 1);
 }
 
-void	sizexy_win(t_map *map)
+int	ft_putnbr(long int nbr)
 {
-	map->size.x_win = (map->size.x - 1) * 60;
-	map->size.y_win = map->size.y * 60;
+	int	cont;
+
+	cont = 0;
+	if (nbr < 0)
+	{
+		write (1, "-", 1);
+		nbr *= -1;
+		cont++;
+	}
+	if (nbr > 9)
+		cont += ft_putnbr(nbr / 10);
+	cont++;
+	ft_char((nbr % 10) + '0');
+	return (cont);
 }

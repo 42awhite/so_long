@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/27 20:54:25 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:32:44 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>
 # include <mlx.h>
 # include "libft/libft.h"
+//# include "printf/ft_printf.h"
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 200
 # endif
@@ -104,20 +105,23 @@ typedef struct s_sl
 char	*get_next_line(int fd);
 void	ft_print_error(char *str);
 void	ft_check_all_map(t_sl *sl, char *path_map);
-void	sizexy_win(t_map *map);
 void	img_to_map(t_sl *sl);
 void	load_imgs(t_img *img, t_vars *vars);
-int		ft_close(void);
 void	ft_count_lines(char *path_map, t_sizem *size_map);
 char	**ft_all_map(char *path_map, int n_lines);
 void	ft_name_map(char *path_map);
 int		ft_close(void);
 void	sizexy_win(t_map *map);
-void	load_imgs(t_img *img, t_vars *vars);
 void	img_letter(char c, int x, int y, t_sl *sl);
 void	ft_move(t_sl *sl, int dx, int dy);
 int		ft_input(int keycode, t_sl *sl);
 void	ft_win(t_sl *sl);
 void	ft_img_error(void **xpm, t_img *img);
+void	ft_border_map(char **map, int x, int y);
+void	ft_check_obj(char **map, t_sl *sl);
+void	ft_p_map(char **map, int x_pj, int y_pj);
+void	ft_valid_map(char **p_map);
+int		ft_putnbr(long int nbr);
+void	ft_char(char c);
 
 #endif

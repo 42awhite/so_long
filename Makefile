@@ -6,7 +6,7 @@
 #    By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 19:36:44 by ablanco-          #+#    #+#              #
-#    Updated: 2023/02/27 17:45:27 by ablanco-         ###   ########.fr        #
+#    Updated: 2023/03/01 21:44:16 by ablanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC		=	valid_map.c\
 			window.c\
 			images.c\
 			move.c\
+			put_nbr.c\
 
 OBJS	= ${SRC:.c=.o}
 
