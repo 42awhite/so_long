@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:49:43 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/27 20:06:53 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:28:00 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	ft_move(t_sl *sl, int dx, int dy)
 			sl->obj.col--;
 		printf("\n%d\n", sl->obj.col);
 		sl->map.full_map[sl->pj.y_pj + dy][sl->pj.x_pj + dx] = 'P';
-		//if (sl->c_tim == 500)
-		//	ft_win(sl);
 		sl->pj.x_pj += dx;
 		sl->pj.y_pj += dy;
 		img_to_map(sl);
@@ -33,7 +31,7 @@ int	ft_input(int keycode, t_sl *sl)
 {
 	if (keycode == 53)
 		exit(1);
-	if (keycode == 0 || keycode == 123) 
+	if (keycode == 0 || keycode == 123)
 	{
 		sl->img.player = sl->img.pj_l;
 		ft_move(sl, -1, 0);
@@ -43,7 +41,7 @@ int	ft_input(int keycode, t_sl *sl)
 		sl->img.player = sl->img.pj_r;
 		ft_move(sl, 1, 0);
 	}
-	if (keycode == 13  || keycode == 126)
+	if (keycode == 13 || keycode == 126)
 	{
 		sl->img.player = sl->img.pj_up;
 		ft_move(sl, 0, -1);
@@ -53,5 +51,5 @@ int	ft_input(int keycode, t_sl *sl)
 		sl->img.player = sl->img.pj_d;
 		ft_move(sl, 0, 1);
 	}
-	return(0);
+	return (0);
 }

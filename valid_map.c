@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_map->c                                        :+:      :+:    :+:   */
+/*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/29 16:49:26 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/07 19:13:30 by ablanco-         ###   ########.fr       */
+/*   Created: 2023/03/01 16:37:56 by ablanco-          #+#    #+#             */
+/*   Updated: 2023/03/01 16:49:31 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,24 @@ void	ft_border_map(char **map, int x, int y)
 	}
 }
 
+void	ft_num_obj(t_objects *obj)
+{
+	if (obj->pj != 1 || obj->exit != 1)
+		ft_print_error("n de obj o pj mal");
+	if (obj->col < 1)
+		ft_print_error("No hay coleccionables");
+}
+
 void	ft_check_obj(char **map, t_objects *obj, t_pj *pos_pj)
 {
 	int	cont_x;
 	int	cont_y;
 
-	cont_x = 0;
 	cont_y = 0;
+	cont_x = 0;
 	while (map[cont_y])
 	{
-		while(map[cont_y][cont_x] != '\n')
+		while (map[cont_y][cont_x] != '\n')
 		{
 			if (map[cont_y][cont_x] == 'C')
 				obj->col++;
@@ -62,10 +70,7 @@ void	ft_check_obj(char **map, t_objects *obj, t_pj *pos_pj)
 		cont_y++;
 		cont_x = 0;
 	}
-	if (obj->pj != 1 || obj->exit != 1)
-		ft_print_error("n de obj o pj mal");
-	if (obj->col < 1)
-		ft_print_error("No hay coleccionables");
+	ft_num_obj(obj);
 }
 
 void	ft_p_map(char **map, int x_pj, int y_pj)
@@ -101,7 +106,7 @@ void	ft_valid_map(char **p_map)
 	y = 0;
 	while (p_map[y])
 	{
-		while(p_map[y][x] != '\n')
+		while (p_map[y][x] != '\n')
 		{
 			if (p_map[y][x] == 'C' || p_map[y][x] == 'E')
 				ft_print_error("Mapa no valido");

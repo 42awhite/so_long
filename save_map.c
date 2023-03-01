@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:22:14 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/16 16:58:27 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:34:59 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_name_map(char *path_map)
 
 void	ft_count_lines(char *path_map, t_sizem *size_map)
 {
-	
 	char	*map;
 	int		fd;
 
@@ -35,11 +34,10 @@ void	ft_count_lines(char *path_map, t_sizem *size_map)
 		free(map);
 		size_map->y++;
 		map = get_next_line(fd);
-		//CUIDADO con el casteo
 		if (map && size_map->x != (int)ft_strlen(map))
 			ft_print_error("Lineas no iguales");
 	}
-		close(fd);
+	close(fd);
 }
 
 char	**ft_all_map(char *path_map, int n_lines)
@@ -60,6 +58,6 @@ char	**ft_all_map(char *path_map, int n_lines)
 		map = get_next_line(fd);
 		n_lines++;
 	}
-	return(full_map);
+	return (full_map);
 	close(fd);
 }
