@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:49:43 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/03/01 22:03:32 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:22:18 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ft_move(t_sl *sl, int dx, int dy)
 		sl->map.full_map[sl->pj.y_pj][sl->pj.x_pj] = '0';
 		if (sl->map.full_map[sl->pj.y_pj + dy][sl->pj.x_pj + dx] == 'C')
 			sl->obj.col--;
+		if (sl->map.full_map[sl->pj.y_pj + dy][sl->pj.x_pj + dx] == 'M')
+			exit(0);
 		sl->map.full_map[sl->pj.y_pj + dy][sl->pj.x_pj + dx] = 'P';
 		sl->pj.x_pj += dx;
 		sl->pj.y_pj += dy;

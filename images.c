@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:36:06 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/02/27 20:58:46 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:37:20 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	load_imgs(t_img *img, t_vars *vars)
 
 	xpm = &img->player;
 	img->player = mlx_xpm_file_to_image(vars->mlx, PR, &img_width, &img_height);
+	img->mons = mlx_xpm_file_to_image(vars->mlx, MO, &img_width, &img_height);
 	img->pj_r = mlx_xpm_file_to_image(vars->mlx, PR, &img_width, &img_height);
 	img->pj_l = mlx_xpm_file_to_image(vars->mlx, PL, &img_width, &img_height);
 	img->pj_d = mlx_xpm_file_to_image(vars->mlx, PD, &img_width, &img_height);
@@ -63,6 +64,9 @@ void	img_letter(char c, int x, int y, t_sl *sl)
 	else if (c == 'C')
 		mlx_put_image_to_window(sl->vars.mlx,
 			sl->vars.win, sl->img.food, x * 60, y * 60);
+	else if (c == 'M')
+		mlx_put_image_to_window(sl->vars.mlx,
+			sl->vars.win, sl->img.mons, x * 60, y * 60);
 	if (x == sl->obj.x_ex && y == sl->obj.y_ex)
 		mlx_put_image_to_window(sl->vars.mlx, sl->vars.win,
 			sl->img.exit, x * 60, y * 60);

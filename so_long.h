@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/03/01 21:32:44 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:06:47 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define H4		"imag/h5.xpm"
 # define H5		"imag/h6.xpm"
 # define H6		"imag/h7.xpm"
+# define MO		"imag/bomba.xpm"
 
 typedef struct s_vars {
 	void	*mlx;
@@ -83,6 +84,7 @@ typedef struct s_img
 	void	*exit;
 	void	*h[7];
 	void	*food;
+	void	*mons;
 }t_img;
 
 typedef struct s_map

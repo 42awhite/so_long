@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:37:56 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/03/01 18:16:42 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:28:40 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,22 @@ void	ft_check_obj(char **map, t_sl *sl)
 
 void	ft_p_map(char **map, int x_pj, int y_pj)
 {
-	if (map[y_pj][x_pj + 1] != '1' && map[y_pj][x_pj + 1] != 'P')
+	if (map[y_pj][x_pj + 1] != '1' && map[y_pj][x_pj + 1] != 'P' && map[y_pj][x_pj + 1] != 'M')
 	{
 		map[y_pj][x_pj + 1] = 'P';
 		ft_p_map(map, x_pj + 1, y_pj);
 	}
-	if (map[y_pj][x_pj - 1] != '1' && map[y_pj][x_pj - 1] != 'P')
+	if (map[y_pj][x_pj - 1] != '1' && map[y_pj][x_pj - 1] != 'P' && map[y_pj][x_pj - 1] != 'M')
 	{
 		map[y_pj][x_pj - 1] = 'P';
 		ft_p_map(map, x_pj - 1, y_pj);
 	}
-	if (map[y_pj + 1][x_pj] != '1' && map[y_pj + 1][x_pj] != 'P')
+	if (map[y_pj + 1][x_pj] != '1' && map[y_pj + 1][x_pj] != 'P' && map[y_pj + 1][x_pj] != 'M')
 	{
 		map[y_pj + 1][x_pj] = 'P';
 		ft_p_map(map, x_pj, y_pj + 1);
 	}
-	if (map[y_pj - 1][x_pj] != '1' && map[y_pj - 1][x_pj] != 'P')
+	if (map[y_pj - 1][x_pj] != '1' && map[y_pj - 1][x_pj] != 'P' && map[y_pj - 1][x_pj] != 'M')
 	{
 		map[y_pj - 1][x_pj] = 'P';
 		ft_p_map(map, x_pj, y_pj - 1);
