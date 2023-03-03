@@ -6,7 +6,7 @@
 #    By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 19:36:44 by ablanco-          #+#    #+#              #
-#    Updated: 2023/03/01 21:44:16 by ablanco-         ###   ########.fr        #
+#    Updated: 2023/03/03 20:04:51 by ablanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,26 +24,29 @@ SRC		=	valid_map.c\
 			put_nbr.c\
 
 OBJS	= ${SRC:.c=.o}
-
+LIB		= ./libft
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -Imlx -g -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -Imlx -g3 -fsanitize=address
 
 RM		= rm -f
 
-all:	${NAME}
+all:	${NAME} libft
 
 ${NAME}:	${OBJS}
-			$(CC) $(OBJS) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) libft.a
+			make -C $(LIB)
+			$(CC) $(OBJS) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(LIB)/libft.a
 
 exe:
 	./$(NAME)
 
 clean:
 		@${RM} ${OBJS} ${BONUS_OBJS}
+		make -C $(LIB) clean
 
 fclean: clean
 		${RM} ${NAME}
+		make -C $(LIB) fclean
 
 re: fclean all
 

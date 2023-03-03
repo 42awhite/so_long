@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:13:30 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/03/02 16:06:47 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:09:13 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <string.h>
 # include <mlx.h>
 # include "libft/libft.h"
-//# include "printf/ft_printf.h"
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 200
 # endif
@@ -102,6 +101,7 @@ typedef struct s_sl
 	t_vars		vars;
 	t_img		img;
 	int			c_tim;
+	void		*step;
 }t_sl;
 
 char	*get_next_line(int fd);
