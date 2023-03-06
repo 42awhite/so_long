@@ -6,7 +6,7 @@
 /*   By: ablanco- <ablanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:59:23 by ablanco-          #+#    #+#             */
-/*   Updated: 2023/03/03 18:12:27 by ablanco-         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:06:09 by ablanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 	sl.vars.mlx = mlx_init();
 	sizexy_win(&sl.map);
 	sl.vars.win = mlx_new_window(sl.vars.mlx, sl.map.size.x_win,
-			sl.map.size.y_win, "I'm a SEXY window!! :)");
+			sl.map.size.y_win, "Pizzasaurio!! :)");
 	load_imgs(&sl.img, &sl.vars);
 	img_to_map(&sl);
 	mlx_key_hook(sl.vars.win, ft_input, &sl);
