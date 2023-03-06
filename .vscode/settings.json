@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "mlx.h": "c",
-        "stdarg.h": "c"
-    },
-    "C_Cpp.errorSquiggles": "disabled"
-}
